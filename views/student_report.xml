@@ -1,0 +1,103 @@
+<odoo>
+  <data>
+
+    <!-- Custom Header Template -->
+    <template id="custom_report_header">
+      <div style="text-align: center; position: relative;">
+        <h1 style="color: #007BFF; font-weight: bold; margin: 0;">
+          Daffodil International School
+        </h1>
+      </div>
+      <hr style="border: 1px solid #007BFF; width: 100%; margin-bottom: 15px;" />
+    </template>
+
+    <!-- Custom Footer Template -->
+    <template id="custom_report_footer">
+      <hr style="border: 1px solid #007BFF; width: 100%; margin-top: 20px;" />
+      <div style="text-align: center; font-size: 10px;">
+        Generated on | Confidential
+      </div>
+    </template>
+
+    <!-- PDF Template for Student Report -->
+    <template id="report_student_details">
+      <t t-call="web.basic_layout">
+        <div class="page">
+
+          <!-- Custom Header -->
+          <t t-call="student_information.custom_report_header"/>
+
+          <!-- Student Photo and Title -->
+          <t t-foreach="docs" t-as="doc">
+            <div style="overflow: auto; margin-bottom: 20px;">
+              <div style="float: left;">
+                <h2>Student Report</h2>
+              </div>
+              <t t-if="doc.image">
+  <img t-att-src="'data:image/png;base64,%s' % (doc.image.decode('utf-8'))"
+       style="width: 100px; height: 100px; border: 1px solid #ccc; object-fit: cover; margin-left: 20px;"/>
+</t>
+
+
+            </div>
+
+            <!-- Student Info Table -->
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Full Name</td><td><t t-esc="doc.name"/></td></tr>
+                <tr><td>Roll Number</td><td><t t-esc="doc.roll_number"/></td></tr>
+                <tr><td>Class</td><td><t t-esc="doc.class_id.name"/></td></tr>
+                <tr><td>Section</td><td><t t-esc="doc.section_id.name"/></td></tr>
+                <tr><td>Institution</td><td><t t-esc="doc.institution_id.name"/></td></tr>
+                <tr><td>Email</td><td><t t-esc="doc.email"/></td></tr>
+                <tr><td>Phone</td><td><t t-esc="doc.phone"/></td></tr>
+                <tr><td>Date of Birth</td><td><t t-esc="doc.date_of_birth"/></td></tr>
+                <tr><td>Gender</td><td><t t-esc="doc.gender"/></td></tr>
+                <tr><td>Address</td><td><t t-esc="doc.address"/></td></tr>
+              </tbody>
+            </table>
+          </t>
+
+          <!-- Footer -->
+          <t t-call="student_information.custom_report_footer"/>
+
+        </div>
+      </t>
+    </template>
+
+    <!-- Report Action -->
+    <record id="action_report_student_details" model="ir.actions.report">
+      <field name="name">Student Details Report</field>
+      <field name="model">school.student</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">student_information.report_student_details</field>
+      <field name="report_file">student_information.report_student_details</field>
+      <field name="binding_type">report</field>
+      <field name="print_report_name">'Student - %s' % (object.name)</field>
+    </record>
+
+    <!-- Server Action -->
+    <record id="action_server_student_report" model="ir.actions.server">
+      <field name="name">Generate Student Report</field>
+      <field name="model_id" ref="model_school_student"/>
+      <field name="binding_model_id" ref="model_school_student"/>
+      <field name="state">code</field>
+      <field name="binding_type">action</field>
+      <field name="code">
+        action = {
+          'type': 'ir.actions.report',
+          'report_name': 'student_information.report_student_details',
+          'report_type': 'qweb-pdf',
+          'res_ids': [record.id],
+        }
+      </field>
+    </record>
+
+  </data>
+</odoo>

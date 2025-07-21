@@ -1,0 +1,26 @@
+<!-- dashboard_template.xml -->
+<templates xml:space="preserve">
+  <t t-name="student_information.SchoolDashboard" owl="1">
+    <div class="o_dashboard p-4">
+      <h2 class="mb-4">📊 School Dashboard</h2>
+      <div class="row">
+        <div class="col-6">
+          <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+              <h4 class="card-title">Total Students</h4>
+              <p class="card-text display-4" t-esc="studentCount"/>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+              <h4 class="card-title">Total Teachers</h4>
+              <p class="card-text display-4" t-esc="teacherCount"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </t>
+</templates>

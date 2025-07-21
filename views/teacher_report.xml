@@ -1,0 +1,84 @@
+<odoo>
+  <data>
+
+    <!-- Custom Header Template -->
+    <template id="custom_report_header1">
+  <h1 style="text-align: center; color: #007BFF; font-weight: bold; margin-bottom: 10px;">
+    Daffodil International School
+  </h1>
+</template>
+
+
+    <!-- Custom Footer Template -->
+    <template id="custom_report_footer1">
+      <div style="text-align: center; font-size: 10px;">
+        Generated on | Confidential
+      </div>
+    </template>
+
+    <!-- Main Report Template -->
+    <template id="report_teacher_details">
+      <t t-call="web.basic_layout">
+        <div class="page">
+
+          <!-- Use Custom Header -->
+          <t t-call="student_information.custom_report_header1"/>
+
+          <h2>Teacher Report</h2>
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <t t-foreach="docs" t-as="doc">
+                <tr><td>Full Name</td><td><t t-esc="doc.name"/></td></tr>
+                <tr><td>Employee ID</td><td><t t-esc="doc.employee_id"/></td></tr>
+                <tr><td>Gender</td><td><t t-esc="doc.gender"/></td></tr>
+                <tr><td>Phone</td><td><t t-esc="doc.phone"/></td></tr>
+                <tr><td>Email</td><td><t t-esc="doc.email"/></td></tr>
+                <tr><td>Address</td><td><t t-esc="doc.address"/></td></tr>
+                <tr><td>Hire Date</td><td><t t-esc="doc.hire_date"/></td></tr>
+              </t>
+            </tbody>
+          </table>
+
+          <!-- Use Custom Footer -->
+          <t t-call="student_information.custom_report_footer1"/>
+
+        </div>
+      </t>
+    </template>
+
+    <!-- Report Action -->
+    <record id="action_report_teacher_details" model="ir.actions.report">
+      <field name="name">Teacher Details Report</field>
+      <field name="model">school.teacher</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">student_information.report_teacher_details</field>
+      <field name="report_file">student_information.report_teacher_details</field>
+      <field name="binding_type">report</field>
+      <field name="print_report_name">'Teacher - %s' % (object.name)</field>
+    </record>
+
+    <!-- Optional: Server Action -->
+    <record id="action_server_teacher_report" model="ir.actions.server">
+      <field name="name">Generate Teacher Report</field>
+      <field name="model_id" ref="model_school_teacher"/>
+      <field name="binding_model_id" ref="model_school_teacher"/>
+      <field name="state">code</field>
+      <field name="binding_type">action</field>
+      <field name="code">
+        action = {
+          'type': 'ir.actions.report',
+          'report_name': 'student_information.report_teacher_details',
+          'report_type': 'qweb-pdf',
+          'res_ids': [record.id],
+        }
+      </field>
+    </record>
+
+  </data>
+</odoo>
