@@ -1,13 +1,17 @@
 <odoo>
-    <record id="action_school_dashboard_client" model="ir.actions.client">
-        <field name="name">Dashboard</field>
-        <field name="tag">school_dashboard_action</field>
+    <!-- Dashboard Parent Menu -->
+    <menuitem id="menu_school_dashboard" name="Dashboard" parent="school_menu_root" sequence="1"/>
+
+    <!-- Dashboard Client Action -->
+    <record id="action_school_dashboard" model="ir.actions.client">
+        <field name="name">School Dashboard</field>
+        <field name="tag">school_dashboard</field>
     </record>
 
-    <menuitem id="menu_school_dashboard"
-              name="Dashboard"
-              parent="school_menu_root"
-              sequence="4"
-              action="student_information.action_school_dashboard_client"/>
+    <!-- Link Menu to Action -->
+    <menuitem id="menu_school_dashboard_action"
+              name="School Dashboard"
+              parent="menu_school_dashboard"
+              action="action_school_dashboard"
+              sequence="4"/>
 </odoo>
-

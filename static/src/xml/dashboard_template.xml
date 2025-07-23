@@ -1,4 +1,3 @@
-<!-- dashboard_template.xml -->
 <templates xml:space="preserve">
   <t t-name="student_information.SchoolDashboard" owl="1">
     <div class="o_dashboard p-4">
@@ -8,7 +7,7 @@
           <div class="card text-white bg-primary mb-3">
             <div class="card-body">
               <h4 class="card-title">Total Students</h4>
-              <p class="card-text display-4" t-esc="studentCount"/>
+              <p class="card-text display-4" t-esc="state.studentCount"/>
             </div>
           </div>
         </div>
@@ -16,7 +15,7 @@
           <div class="card text-white bg-success mb-3">
             <div class="card-body">
               <h4 class="card-title">Total Teachers</h4>
-              <p class="card-text display-4" t-esc="teacherCount"/>
+              <p class="card-text display-4" t-esc="state.teacherCount"/>
             </div>
           </div>
         </div>
