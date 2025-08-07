@@ -8,6 +8,7 @@ class SchoolDashboardController(http.Controller):
     def student_count(self):
         count = request.env['school.student'].search_count([])
         return {'count': count}
+
     @http.route('/school_dashboard/teacher_count', type='json', auth='user')
     def teacher_count(self):
         count = request.env['school.teacher'].search_count([])

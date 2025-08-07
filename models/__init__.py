@@ -3,3 +3,4 @@ from . import teacher
 from . import configuration
 from . import dashboard
 from . import main
+from . import exam

@@ -15,6 +15,8 @@
         'views/configuration_views.xml',
         'views/teacher_report.xml',
         'views/menu.xml',
+        'views/exam_views.xml',
+
 
     ],
 

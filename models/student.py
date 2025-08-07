@@ -23,6 +23,7 @@ class Student(models.Model):
     class_id = fields.Many2one('school.class', string='Class', required=True)
     section_id = fields.Many2one('school.section', string='Section', required=True)
     institution_id = fields.Many2one('school.institution', string='Institution', required=True)
+    subject_id = fields.Many2one('school.subject', string='Subject', required=True)
     address = fields.Text(string='Address')
 
     active = fields.Boolean(string='Active', default=True)
